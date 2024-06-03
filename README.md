@@ -2,7 +2,7 @@
 
 ## Overview
 
-This Pokémon-style JavaScript game is a fun and interactive adventure inspired by the classic Pokémon games. Players embark on a journey to become the ultimate Pokémon trainer, capturing and battling Pokémon to become the champion of the region.
+This Pokémon-style JavaScript game is a fun and interactive adventure inspired by the classic Pokémon games. Players embark on a journey to become the ultimate trainer, capturing and battling arbitrary Pokémon-like creatures.
 
 ## Features
 
@@ -11,6 +11,9 @@ This Pokémon-style JavaScript game is a fun and interactive adventure inspired 
 - **Upgrade Pokémon:** Level up your Pokémon, teach them new moves, and evolve them into more powerful forms.
 - **Explore the Region:** Travel through diverse environments, from lush forests to rocky mountains, to discover new Pokémon and challenges.
 
+## Conclusion
+
+Thank you for exploring our Pokémon-style JavaScript game! We hope you enjoyed playing and experiencing the nostalgia of classic Pokémon adventures.
 
 
 
