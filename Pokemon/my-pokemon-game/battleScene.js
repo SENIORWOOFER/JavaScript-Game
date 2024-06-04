@@ -8,52 +8,19 @@ const battleBackground = new Sprite({
   image: battleBackgroundImage
 })
 
-const draggleImage = new Image()
-draggleImage.src = './images/draggleSprite.png'
-const draggle = new Sprite({
-  position: {
-    x: 800,
-    y: 100
-  },
-  image: draggleImage,
-  frames: {
-    max: 4,
-    hold: 30
-  },
-  animate: true,
-  isEnemy: true,
-  name: 'Draggle'
-})
-
-
-const embyImage = new Image()
-embyImage.src = './images/embySprite.png'
-const emby = new Sprite({
-  position: {
-    x: 280,
-    y: 325
-  },
-  image: embyImage,
-  frames: {
-    max: 4,
-    hold: 30
-  },
-  animate: true,
-  name: 'Emby'
-})
+const draggle = new Monster(monsters.Draggle)
+const emby = new Monster(monsters.Emby)
 
 const renderedSprites = [draggle, emby]
 
-function animateBattle() {
-  window.requestAnimationFrame(animateBattle)
-  battleBackground.draw()
-
-  renderedSprites.forEach((sprite) => {
-    sprite.draw()
-  })
-}
-
 const queue = []
+
+emby.attacks.forEach((attack) => {
+  const button = document.createElement('button')
+  button.innerHTML = attack.name
+  document.querySelector('#attacksBox').append(button)
+})
+
 
 document.querySelectorAll('button').forEach((button) => {
   button.addEventListener('click', (e) => {
@@ -63,15 +30,45 @@ document.querySelectorAll('button').forEach((button) => {
       recipient: draggle, renderedSprites
     })
 
+    if(draggle.health <= 0){
+      queue.push(() => {
+        draggle.faint()
+      })
+      return
+    }
+
+    const randomAttack = draggle.attacks[Math.floor(Math.random() * draggle.attacks.length)]
+
     queue.push(() => {
       draggle.attack ({
-        attack: attacks.Tackle,
+        attack: randomAttack,
         recipient: emby, renderedSprites
       })
+      if(emby.health <= 0){
+        queue.push(() => {
+          emby.faint()
+        })
+        return
+      }
     })
 
   })
+
+  button.addEventListener('mouseenter', (e) => {
+    const selectedAttack = attacks[e.currentTarget.innerHTML]
+    document.querySelector('#attackType').innerHTML = selectedAttack.type
+    document.querySelector('#attackType').style.color = selectedAttack.color
+  })
 })
+
+function animateBattle() {
+  window.requestAnimationFrame(animateBattle)
+  battleBackground.draw()
+
+  renderedSprites.forEach((sprite) => {
+    sprite.draw()
+  })
+}
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
   if(queue.length > 0) {

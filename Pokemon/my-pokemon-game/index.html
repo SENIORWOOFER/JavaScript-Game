@@ -64,13 +64,8 @@
   <canvas></canvas>
   <div style="background-color: white; height: 140px; position: absolute; bottom: 0; left: 0; right: 0; border-top: 4px black solid; display: flex;">
     <div id="dialogueBox" style="position: absolute; top: 0; bottom: 0; left: 0; right: 0; background-color: white; padding: 12px; display: none; cursor: pointer;">Hello World</div>
-    <div style="width: 66.666%; display: grid; grid-template-columns: repeat(2, 1fr);">
-      <button>Tackle</button>
-      <button>Fireball</button>
-      <button>Attack3</button>
-      <button>Attack4</button>
-    </div>
-    <div style="display: flex; align-items: center; justify-content: center; width: 33.333%; border-left: 4px black solid;">
+    <div id="attacksBox" style="width: 66.666%; display: grid; grid-template-columns: repeat(2, 1fr);"></div>
+    <div id="attackType" style="display: flex; align-items: center; justify-content: center; width: 33.333%; border-left: 4px black solid;">
       <h1 style="font-size: 16px;">Attack Type</h1>
     </div>
   </div>
@@ -81,6 +76,7 @@
 <script src="./data/battleZones.js"></script>
 <script src="./data/collisions.js"></script>
 <script src="./data/attacks.js"></script>
+<script src="./data/monsters.js"></script>
 <script src="classes.js"></script>
 <script src="index.js"></script>
 <script src="battleScene.js"></script>

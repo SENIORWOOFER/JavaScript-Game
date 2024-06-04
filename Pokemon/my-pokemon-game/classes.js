@@ -5,9 +5,7 @@ class Sprite {
     frames = {max:1, hold: 10}, 
     sprites = [], 
     animate = false, 
-    isEnemy = false, 
     rotation = 0, 
-    name
   }) {
     this.position = position
     this.image = image
@@ -20,10 +18,7 @@ class Sprite {
     this.animate = animate
     this.sprites = sprites
     this.opacity = 1
-    this.health = 100
-    this.isEnemy = isEnemy
     this.rotation = rotation
-    this.name = name
   }
 
   draw() {
@@ -57,6 +52,44 @@ class Sprite {
     }
   }
 
+}
+
+class Monster extends Sprite {
+  constructor({
+    position, 
+    image, 
+    frames = {max:1, hold: 10}, 
+    sprites, 
+    animate = false, 
+    rotation = 0, 
+    isEnemy = false, 
+    name,
+    attacks
+  }){
+    super({
+      position, 
+      image, 
+      frames, 
+      sprites,
+      animate, 
+      rotation
+    })
+    this.isEnemy = isEnemy
+    this.health = 100
+    this.name = name
+    this.attacks = attacks
+  }
+
+  faint(){
+    document.querySelector('#dialogueBox').innerHTML = this.name + ' fainted!'
+    gsap.to(this.position, {
+      y: this.position.y + 20
+    })
+    gsap.to(this, {
+      opacity: 0
+    })
+  }
+
   attack({attack, recipient, renderedSprites}) {
 
     document.querySelector('#dialogueBox').style.display = 'block'
@@ -64,7 +97,7 @@ class Sprite {
 
     let healthBar = '#enemyHealthBar'
     if(this.isEnemy) healthBar = '#playerHealthBar'
-    this.health = this.health - attack.damage
+    recipient.health = recipient.health - attack.damage
 
     let rotation = 1
     if(this.isEnemy) rotation = -2.2
@@ -86,7 +119,7 @@ class Sprite {
           onComplete: () => {
     
             gsap.to(healthBar, {
-              width: this.health +'%'
+              width: recipient.health +'%'
             })
     
             gsap.to(recipient.position, {
@@ -134,7 +167,7 @@ class Sprite {
           y: recipient.position.y,
           onComplete: () => {
             gsap.to(healthBar, {
-              width: this.health +'%'
+              width: recipient.health +'%'
             })
     
             gsap.to(recipient.position, {
