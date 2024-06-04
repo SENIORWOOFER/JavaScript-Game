@@ -1,8 +1,6 @@
 const canvas = document.querySelector('canvas')
 const context = canvas.getContext('2d')
 
-
-
 canvas.width = 1024
 canvas.height = 576
 
@@ -24,7 +22,7 @@ const offset = {
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if(symbol === 1025)
-      boundaries.push(new Boundary({position:{
+      boundaries.push(new Boundary({position: {
         x:j*Boundary.width + offset.x,
         y:i*Boundary.height + offset.y
     }}))
@@ -116,6 +114,8 @@ const keys = {
 
 const movables = [background, ...boundaries, foreground, ...battleZones]
 
+const renderables = [background, ...boundaries, ...battleZones, player, foreground]
+
 function rectangularCollision({rectangle1, rectangle2}) {
   return (
     rectangle1.position.x + rectangle1.width >= rectangle2.position.x &&
@@ -143,6 +143,7 @@ function animateMovement(){
 
   let moving = true
   player.animate = false
+  
   if(battle.initiated) return
 
   if(keys.w.pressed || keys.a.pressed || keys.s.pressed || keys.d.pressed) {
@@ -159,6 +160,10 @@ function animateMovement(){
         
         //deactivate animation loop
         window.cancelAnimationFrame(animationID)
+
+        audio.map.stop()
+        audio.initBattle.play()
+        audio.battle.play()
         
         battle.initiated = true
         gsap.to('#overlappingDiv', {
@@ -288,7 +293,7 @@ function animateMovement(){
     }
   
 }
-animateMovement()
+
 
 
 
@@ -334,5 +339,13 @@ window.addEventListener('keyup', (e) => {
     case 'd':
       keys.d.pressed = false
       break
+  }
+})
+
+let clicked = false
+window.addEventListener('click', () => {
+  if(!clicked){
+    audio.map.play()
+    clicked = true
   }
 })

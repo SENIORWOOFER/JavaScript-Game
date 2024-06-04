@@ -56,6 +56,7 @@ function initBattle() {
                 opacity: 0
               })
               battle.initiated = false
+              audio.map.play()
             }
           })
         })
@@ -83,6 +84,7 @@ function initBattle() {
                   opacity: 0
                 })
                 battle.initiated = false
+                audio.map.play()
               }
             })
           })
@@ -107,8 +109,9 @@ function animateBattle() {
   })
 }
 
-initBattle()
-animateBattle()
+animateMovement()
+// initBattle()
+// animateBattle()
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
   if(queue.length > 0) {
