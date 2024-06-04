@@ -19,6 +19,8 @@ const offset = {
   x: -1340,
   y: -800
 }
+
+
 collisionsMap.forEach((row, i) => {
   row.forEach((symbol, j) => {
     if(symbol === 1025)
@@ -131,6 +133,7 @@ const battle = {
 
 function animateMovement(){
   const animationID = window.requestAnimationFrame(animateMovement)
+
   background.draw()
   boundaries.forEach(boundary => {
     boundary.draw()
