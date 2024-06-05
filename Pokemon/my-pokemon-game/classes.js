@@ -102,10 +102,12 @@ class Monster extends Sprite {
 
     let healthBar = '#enemyHealthBar'
     if(this.isEnemy) healthBar = '#playerHealthBar'
-    recipient.health = recipient.health - attack.damage
+
 
     let rotation = 1
     if(this.isEnemy) rotation = -2.2
+
+        recipient.health = recipient.health - attack.damage
 
     switch(attack.name){
       case 'Tackle':
@@ -116,10 +118,10 @@ class Monster extends Sprite {
     
     
         tl.to(this.position, {
-          x: this.position.x - (movementDistance * 2)
+          x: this.position.x - movementDistance
         })
         .to(this.position, {
-          x: this.position.x + 40,
+          x: this.position.x + (movementDistance * 2),
           duration: 0.1,
           onComplete: () => {
             audio.tackleHit.play()
